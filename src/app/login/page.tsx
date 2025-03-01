@@ -50,6 +50,9 @@ export default function LoginPage() {
           <div>Not logged in</div>
         )}
       </div>
+      <div className="mb-4">
+        available users: 
+      </div>
       <ul>
         {users.map((user) => (
           <li key={user.id} className="mb-2">
