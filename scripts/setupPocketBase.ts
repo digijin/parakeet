@@ -1,8 +1,8 @@
 import PocketBase from "pocketbase";
 import dotenv from "dotenv";
-import schemas from "../src/config/schema";
+import schemas from "../src/config/schema/index";
 
-dotenv.config();
+dotenv.config({path: ".env.local"});
 
 const pb = new PocketBase("http://127.0.0.1:8090");
 
@@ -29,6 +29,7 @@ async function setupPocketBase() {
           schema: schema.schema,
         });
         console.log(`${schema.name} collection created:`, newCollection);
+        console.
       }
     }
   } catch (error) {
