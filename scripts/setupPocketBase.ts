@@ -1,6 +1,6 @@
 import PocketBase from "pocketbase";
 import dotenv from "dotenv";
-import { reviewsSchema } from "../src/config/schema";
+import schemas from "../src/config/schema";
 
 dotenv.config();
 
@@ -11,16 +11,26 @@ async function setupPocketBase() {
     // Authenticate as admin
     const adminEmail = process.env.PB_ADMIN_EMAIL as string;
     const adminPassword = process.env.PB_ADMIN_PASSWORD as string;
-    await pb.admins.authWithPassword(adminEmail, adminPassword);
+    await pb.collection("_superusers").authWithPassword(adminEmail, adminPassword);
 
-    // Create the "reviews" collection
-    const reviewsCollection = await pb.collections.create({
-      name: "reviews",
-      type: "base",
-      schema: reviewsSchema,
-    });
+    // Iterate over all schemas and create or update collections
+    for (const schema of schemas) {
+      const existingCollection = await pb.collections.getOne(schema.name).catch(() => null);
 
-    console.log("Reviews collection created:", reviewsCollection);
+      if (existingCollection) {
+        const updatedCollection = await pb.collections.update(existingCollection.id, {
+          schema: schema.schema,
+        });
+        console.log(`${schema.name} collection updated:`, updatedCollection);
+      } else {
+        const newCollection = await pb.collections.create({
+          name: schema.name,
+          type: "base",
+          schema: schema.schema,
+        });
+        console.log(`${schema.name} collection created:`, newCollection);
+      }
+    }
   } catch (error) {
     console.error("Error setting up PocketBase:", error);
   }
