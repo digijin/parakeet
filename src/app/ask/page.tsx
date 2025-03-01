@@ -8,7 +8,7 @@ export default function Ask() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch("/api/sendMessage", {
+    const res = await fetch("/api/google/gemini/message", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export default function Ask() {
       {response && (
         <div>
           <h2>Response:</h2>
-          <p>{response}</p>
+          <pre>{response}</pre>
         </div>
       )}
     </div>
