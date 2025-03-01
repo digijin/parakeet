@@ -33,7 +33,8 @@ export default function RootLayout({
           <div>
             <Link href="/" className="text-white mr-4 hover:underline">Home</Link>
             <Link href="/about" className="text-white mr-4 hover:underline">About</Link>
-            <Link href="/ask" className="text-white hover:underline">Ask</Link>
+            <Link href="/ask" className="text-white mr-4 hover:underline">Ask</Link>
+            <Link href="/login" className="text-white hover:underline">Login</Link>
           </div>
         </nav>
         {children}
