@@ -33,15 +33,6 @@ export default function LoginPage() {
 
   return (
     <div>
-      {isPrototype && (
-        <div className="notification-warning">
-          This is a prototype, for now there is no auth, any user can be logged in to. 
-          <br></br>
-          <strong> Do not enter any confidential information anywhere !!!</strong>
-          <br />
-          This prototype is intended for demonstration purposes and uses, use real data at your own risk.
-        </div>
-      )}
       <h1 className="text-2xl font-bold mb-4">Users</h1>
       <div className="mb-4">
         {loggedInUser ? (
