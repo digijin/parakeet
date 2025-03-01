@@ -22,7 +22,9 @@ export default function LoginPage() {
         <div className="notification-warning">
           This is a prototype, for now there is no auth, any user can be logged in to. 
           <br></br>
-          <strong> Do not enter any confidential information anywhere</strong>
+          <strong> Do not enter any confidential information anywhere !!!</strong>
+          <br />
+          This page is for demonstration purposes and uses, test data only
         </div>
       )}
       <h1 className="text-2xl font-bold mb-4">Users</h1>
