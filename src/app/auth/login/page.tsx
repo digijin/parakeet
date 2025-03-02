@@ -27,6 +27,8 @@ export default function LoginPage() {
 
       if (response.ok) {
         setMessage(data.message);
+        // Store the JWT in localStorage or sessionStorage
+        sessionStorage.setItem("token", data.token);
       } else {
         setError(data.message);
       }

@@ -1,5 +1,8 @@
 import crypto from "crypto";
+import jwt from "jsonwebtoken";
 import { getPocketBaseInstance } from "../lib/pocketbase";
+
+const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
 export async function authenticateUser(email: string, password: string) {
   try {
@@ -18,7 +21,9 @@ export async function authenticateUser(email: string, password: string) {
 
     // Check if the hashed password matches
     if (user.password === hashedPassword) {
-      return user;
+      // Generate JWT token
+      const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: "1h" });
+      return { user, token };
     } else {
       console.error("Invalid credentials");
       return null;
