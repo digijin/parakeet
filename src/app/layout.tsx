@@ -33,7 +33,11 @@ export default function RootLayout({
     }
   }, []);
 
-  const handleDismiss = (duration) => {
+  interface HandleDismiss {
+    (duration: number): void;
+  }
+
+  const handleDismiss: HandleDismiss = (duration) => {
     Cookies.set("warningDismissed", "true", { expires: duration });
     setShowWarning(false);
   };

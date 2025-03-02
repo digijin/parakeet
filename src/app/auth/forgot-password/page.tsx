@@ -5,7 +5,11 @@ import { useState } from "react";
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
 
-  const handleSubmit = async (e) => {
+  interface FormEvent {
+    preventDefault: () => void;
+  }
+
+  const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
     // Handle forgot password logic here
   };

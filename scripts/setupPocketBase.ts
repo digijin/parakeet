@@ -29,7 +29,6 @@ async function setupPocketBase() {
           schema: schema.schema,
         });
         console.log(`${schema.name} collection created:`, newCollection);
-        console.
       }
     }
   } catch (error) {
