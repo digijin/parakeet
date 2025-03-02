@@ -36,4 +36,5 @@ async function setupPocketBase() {
   }
 }
 
-setupPocketBase();
+//setupPocketBase();
+console.log("deprecated, use migrations instead");
