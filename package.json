@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "next lint",
     "db": "pocketbase serve",
-    "db:setup": "npx tsx scripts/setupPocketBase.ts"
+    "db:setup": "npx tsx scripts/setupPocketBase.ts",
+    "db:schema": "npx pocketbase-uml@latest",
+    "db:types": "npx pocketbase-typegen --db ./pb_data/data.db --out pocketbase-types.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.22.0",

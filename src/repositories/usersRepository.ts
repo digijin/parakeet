@@ -1,4 +1,4 @@
-import { getPocketBaseInstance } from "../lib/pocketbase";
+import { getPocketBaseInstance } from "@/lib/pocketbase";
 
 export async function getUsers() {
   try {
