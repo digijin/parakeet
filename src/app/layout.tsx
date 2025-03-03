@@ -66,7 +66,7 @@ export default function RootLayout({
         </nav>
         {showWarning && (
           <div className="notification-warning">
-            This is a prototype, for now there is no auth, any user can be logged in to. 
+            This is a prototype, for now auth is insecure. 
             <br></br>
             <strong> Do not enter any confidential information anywhere !!!</strong>
             <br />

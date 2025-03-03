@@ -2,6 +2,7 @@ import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import { getPocketBaseInstance } from "../lib/pocketbase";
 
+// TODO: Replace with your own secret, throw error if not set
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
 export async function authenticateUser(email: string, password: string) {
