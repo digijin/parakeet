@@ -37,6 +37,8 @@ export default function LoginPage() {
       if (response.ok) {
         setMessage(data.message);
         sessionStorage.setItem("token", data.token);
+        console.log("token", data.token);
+        console.log("sessionStorage", sessionStorage.getItem("token"));
       } else {
         setError(data.message);
       }
