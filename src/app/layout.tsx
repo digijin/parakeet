@@ -3,6 +3,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import "./globals.css";
@@ -79,7 +80,16 @@ export default function RootLayout({
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               />
               <NavbarBrand>
-                <p className="font-bold text-inherit">Parakeet</p>
+                <Link href="/" className="flex items-center gap-2">
+                  <Image
+                    src="/brand/logo.svg"
+                    alt="Parakeet Logo"
+                    width={32}
+                    height={32}
+                    className="h-8 w-auto"
+                  />
+                  <p className="font-bold text-inherit">Parakeet</p>
+                </Link>
               </NavbarBrand>
             </NavbarContent>
 
