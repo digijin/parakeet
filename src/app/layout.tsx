@@ -2,26 +2,18 @@
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import "./globals.css";
 import { 
-  HeroUIProvider, 
-  Navbar, 
-  NavbarBrand, 
-  NavbarContent, 
-  NavbarItem, 
-  NavbarMenuToggle,
-  NavbarMenu,
-  NavbarMenuItem,
-  Button,
+  HeroUIProvider,
   Card,
   CardBody,
   CardFooter,
+  Button,
   Divider
 } from "@heroui/react";
+import { Navigation } from "@/components/Navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,7 +33,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [showWarning, setShowWarning] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const warningDismissed = Cookies.get("warningDismissed");
@@ -63,87 +54,12 @@ export default function RootLayout({
     setShowWarning(false);
   };
 
-  const menuItems = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Ask", href: "/ask" },
-  ];
-
   return (
     <html lang="en" className="dark">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}>
         <HeroUIProvider>
-          <Navbar 
-            onMenuOpenChange={setIsMenuOpen}
-            className="bg-content2 border-b border-divider shadow-md"
-          >
-            <NavbarContent>
-              <NavbarMenuToggle
-                className="sm:hidden"
-                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              />
-              <NavbarBrand>
-                <Link href="/" className="flex items-center gap-2">
-                  <Image
-                    src="/brand/logo.svg"
-                    alt="Parakeet Logo"
-                    width={32}
-                    height={32}
-                    className="h-8 w-auto"
-                  />
-                  <p className="font-bold text-inherit">Parakeet</p>
-                </Link>
-              </NavbarBrand>
-            </NavbarContent>
-
-            <NavbarContent className="hidden sm:flex gap-4" justify="center">
-              {menuItems.map((item) => (
-                <NavbarItem key={item.href}>
-                  <Link href={item.href} className="hover:opacity-80">
-                    {item.name}
-                  </Link>
-                </NavbarItem>
-              ))}
-            </NavbarContent>
-
-            <NavbarContent justify="end">
-              <NavbarItem>
-                <Button 
-                  as={Link}
-                  href="/auth/login" 
-                  variant="solid"
-                  color="primary"
-                  className="font-medium shadow-lg"
-                >
-                  Login
-                </Button>
-              </NavbarItem>
-            </NavbarContent>
-
-            <NavbarMenu>
-              {menuItems.map((item) => (
-                <NavbarMenuItem key={item.href}>
-                  <Link 
-                    href={item.href}
-                    className="w-full hover:opacity-80"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                </NavbarMenuItem>
-              ))}
-              <NavbarMenuItem>
-                <Link 
-                  href="/login"
-                  className="w-full hover:opacity-80"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Login
-                </Link>
-              </NavbarMenuItem>
-            </NavbarMenu>
-          </Navbar>
-
+          <Navigation />
+          
           {showWarning && (
             <Card className="m-4 border-warning bg-warning-50">
               <CardBody className="gap-2">
