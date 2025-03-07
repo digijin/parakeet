@@ -3,19 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader, CardFooter, Button } from "@heroui/react";
 import Link from "next/link";
-
-interface User {
-  id: string;
-  email: string;
-  displayName: string;
-}
-
-interface DecodedToken {
-  id: string;
-  email: string;
-  iat: number;
-  exp: number;
-}
+import { User, DecodedToken, getStoredToken, verifyTokenWithAPI, createUserFromToken } from "@/lib/auth";
 
 const LoginSuccessPage: React.FC = () => {
   const [token, setToken] = useState<string | null>(null);
@@ -25,32 +13,23 @@ const LoginSuccessPage: React.FC = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       console.log("[LoginSuccess] Starting auth check");
-      const token = sessionStorage.getItem("token");
+      const token = getStoredToken();
       console.log("[LoginSuccess] Token from sessionStorage:", token ? "present" : "missing");
 
       if (token) {
         try {
           console.log("[LoginSuccess] Sending token to verify endpoint");
-          const response = await fetch("/api/auth/verify", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ token }),
-          });
+          const result = await verifyTokenWithAPI(token);
+          console.log("[LoginSuccess] Verify response:", result);
 
-          console.log("[LoginSuccess] Verify response status:", response.status);
-          const data = await response.json();
-          console.log("[LoginSuccess] Verify response data:", data);
-
-          if (response.ok) {
+          if (result.success && result.data?.decoded) {
             console.log("[LoginSuccess] Token verified, updating state");
             setToken(token);
-            setDecodedToken(data.decoded);
+            setDecodedToken(result.data.decoded);
             setError(null);
           } else {
             console.log("[LoginSuccess] Token verification failed");
-            setError(data.message);
+            setError(result.error || "Token verification failed");
           }
         } catch (error) {
           console.error("[LoginSuccess] Token verification error:", error);
@@ -88,11 +67,7 @@ const LoginSuccessPage: React.FC = () => {
                   {JSON.stringify({ 
                     token, 
                     decodedToken,
-                    user: decodedToken ? {
-                      id: decodedToken.id,
-                      email: decodedToken.email,
-                      displayName: decodedToken.email.split('@')[0]
-                    } : null 
+                    user: decodedToken ? createUserFromToken(decodedToken) : null 
                   }, null, 2)}
                 </pre>
               </div>

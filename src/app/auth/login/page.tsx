@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { 
   Card, 
   CardBody, 
@@ -11,17 +12,21 @@ import {
   Button,
   Divider
 } from "@heroui/react";
+import { setStoredToken } from "@/lib/auth";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     setMessage("");
+    setIsLoading(true);
 
     try {
       const response = await fetch("/api/auth/login", {
@@ -36,14 +41,20 @@ export default function LoginPage() {
 
       if (response.ok) {
         setMessage(data.message);
-        sessionStorage.setItem("token", data.token);
-        console.log("token", data.token);
-        console.log("sessionStorage", sessionStorage.getItem("token"));
+        setStoredToken(data.token);
+        console.log("[Login] Token stored successfully");
+        // Redirect to success page after a short delay
+        setTimeout(() => {
+          router.push("/auth/login/success");
+        }, 1000);
       } else {
-        setError(data.message);
+        setError(data.message || "Login failed");
       }
     } catch (err) {
+      console.error("[Login] Error:", err);
       setError("An unexpected error occurred");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -62,6 +73,7 @@ export default function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
+              isDisabled={isLoading}
             />
             <Input
               type="password"
@@ -70,6 +82,7 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               required
+              isDisabled={isLoading}
             />
             {error && <p className="text-danger">{error}</p>}
             {message && <p className="text-success">{message}</p>}
@@ -80,8 +93,9 @@ export default function LoginPage() {
               type="submit" 
               variant="solid"
               className="w-full"
+              isLoading={isLoading}
             >
-              Login
+              {isLoading ? "Logging in..." : "Login"}
             </Button>
             <p className="text-center text-small">
               No account?{" "}

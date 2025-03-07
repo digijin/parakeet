@@ -17,19 +17,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-
-interface User {
-  id: string;
-  email: string;
-  displayName: string;
-}
-
-interface DecodedToken {
-  id: string;
-  email: string;
-  iat: number;
-  exp: number;
-}
+import { User, DecodedToken, getStoredToken, removeStoredToken, verifyTokenWithAPI, createUserFromToken } from "@/lib/auth";
 
 const menuItems = [
   { name: "Home", href: "/" },
@@ -46,32 +34,19 @@ export function Navigation() {
   useEffect(() => {
     const checkAuthStatus = async () => {
       console.log("[Navigation] Starting auth check");
-      const token = sessionStorage.getItem("token");
+      const token = getStoredToken();
       console.log("[Navigation] Token from sessionStorage:", token ? "present" : "missing");
 
       if (token) {
         try {
           console.log("[Navigation] Sending token to verify endpoint");
-          const response = await fetch("/api/auth/verify", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ token }),
-          });
+          const result = await verifyTokenWithAPI(token);
+          console.log("[Navigation] Verify response:", result);
 
-          console.log("[Navigation] Verify response status:", response.status);
-          const data = await response.json();
-          console.log("[Navigation] Verify response data:", data);
-
-          if (response.ok) {
+          if (result.success && result.data?.decoded) {
             console.log("[Navigation] Token verified, updating user state");
             setIsLoggedIn(true);
-            setUser({
-              id: data.decoded.id,
-              email: data.decoded.email,
-              displayName: data.decoded.email.split('@')[0] // Use email prefix as display name
-            });
+            setUser(createUserFromToken(result.data.decoded));
             console.log("[Navigation] User state updated:", user);
           } else {
             console.log("[Navigation] Token verification failed, logging out");
@@ -98,7 +73,7 @@ export function Navigation() {
   }, []);
 
   const handleLogout = () => {
-    sessionStorage.removeItem("token");
+    removeStoredToken();
     setIsLoggedIn(false);
     setUser(null);
     router.push("/auth/login");
