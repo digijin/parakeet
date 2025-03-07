@@ -1,8 +1,8 @@
 import type { Config } from "tailwindcss";
 
-import {heroui} from "@heroui/react";
+import { heroui } from "@heroui/react";
 
-export default {
+const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -13,11 +13,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "rgb(var(--background))",
+        foreground: "rgb(var(--foreground))",
       },
     },
   },
-  darkMode: "class",
-  plugins: [heroui()],
+  darkMode: ["class"],
+  plugins: [heroui({
+    addCommonColors: true
+  })],
 } satisfies Config;
+
+export default config;
