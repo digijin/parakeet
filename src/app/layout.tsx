@@ -97,7 +97,7 @@ export default function RootLayout({
               <NavbarItem>
                 <Button 
                   as={Link}
-                  href="/login" 
+                  href="/auth/login" 
                   variant="flat"
                   className="hover:opacity-80"
                 >
@@ -144,7 +144,7 @@ export default function RootLayout({
                   variant="flat"
                   color="warning"
                   size="sm"
-                  onClick={() => handleDismiss(1 / 1440)}
+                  onPress={() => handleDismiss(1 / 1440)}
                 >
                   Dismiss for 1 minute
                 </Button>
@@ -152,7 +152,7 @@ export default function RootLayout({
                   variant="flat"
                   color="warning"
                   size="sm"
-                  onClick={() => handleDismiss(1 / 24)}
+                  onPress={() => handleDismiss(1 / 24)}
                 >
                   Dismiss for 1 hour
                 </Button>
@@ -160,7 +160,7 @@ export default function RootLayout({
                   variant="solid"
                   color="warning"
                   size="sm"
-                  onClick={handleDismissPermanently}
+                  onPress={handleDismissPermanently}
                 >
                   Dismiss permanently
                 </Button>

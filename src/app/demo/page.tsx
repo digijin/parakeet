@@ -33,7 +33,9 @@ export default function LoginPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Users</h1>
+      <h1 className="text-2xl font-bold mb-4">Demo Users</h1>
+      <p>These are demo users for the purpose of testing the application.</p>
+      <p>Be careful using these, as they are shared across all users and can be deleted by other users. Any data you add will be visible to other users.</p>
       <div className="mb-4">
         {loggedInUser ? (
           <div>Currently logged in as: {loggedInUser.name} ({loggedInUser.email})</div>
