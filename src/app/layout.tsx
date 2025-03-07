@@ -73,7 +73,10 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}>
         <HeroUIProvider>
-          <Navbar onMenuOpenChange={setIsMenuOpen}>
+          <Navbar 
+            onMenuOpenChange={setIsMenuOpen}
+            className="bg-content2 border-b border-divider shadow-md"
+          >
             <NavbarContent>
               <NavbarMenuToggle
                 className="sm:hidden"
@@ -108,8 +111,9 @@ export default function RootLayout({
                 <Button 
                   as={Link}
                   href="/auth/login" 
-                  variant="flat"
-                  className="hover:opacity-80"
+                  variant="solid"
+                  color="primary"
+                  className="font-medium shadow-lg"
                 >
                   Login
                 </Button>
