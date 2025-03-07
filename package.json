@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.22.0",
+    "@heroicons/react": "^2.2.0",
     "@heroui/react": "^2.7.4",
     "dotenv": "^16.4.7",
     "js-cookie": "^3.0.5",

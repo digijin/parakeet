@@ -14,6 +14,7 @@ import {
   Divider
 } from "@heroui/react";
 import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,7 +57,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="dark">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground min-h-screen flex flex-col`}>
         <HeroUIProvider>
           <Navigation />
           
@@ -95,7 +96,10 @@ export default function RootLayout({
               </CardFooter>
             </Card>
           )}
-          {children}
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
         </HeroUIProvider>
       </body>
     </html>
