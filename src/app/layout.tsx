@@ -148,8 +148,6 @@ export default function RootLayout({
             <Card className="m-4 border-warning bg-warning-50">
               <CardBody className="gap-2">
                 <p className="font-bold text-warning">Prototype Warning</p>
-                <p>This is a prototype, for now auth is insecure.</p>
-                <p className="font-bold">Do not enter any confidential information anywhere!</p>
                 <p>This prototype is intended for demonstration purposes and uses, use real data at your own risk.</p>
               </CardBody>
               <Divider />
