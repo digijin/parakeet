@@ -1,6 +1,17 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import '@testing-library/jest-dom'
 import BlogPage from '../page'
+
+// Mock HeroUI provider
+jest.mock('@heroui/react', () => ({
+  ...jest.requireActual('@heroui/react'),
+  HeroUIProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}))
 
 describe('BlogPage', () => {
   it('renders the blog page with initial content', () => {

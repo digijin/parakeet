@@ -1,6 +1,9 @@
 // Learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom'
 
+// Extend Jest matchers
+import '@testing-library/jest-dom/extend-expect'
+
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
   useRouter() {

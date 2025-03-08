@@ -2,7 +2,6 @@
   "name": "mkt",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "dev:raw": "next dev",
@@ -15,7 +14,10 @@
     "db:types": "npx pocketbase-typegen --db ./pb_data/data.db --out pocketbase-types.ts",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "test:coverage:watch": "jest --coverage --watch",
+    "test:ci": "jest --ci --coverage --maxWorkers=2",
+    "test:clear": "jest --clearCache"
   },
   "dependencies": {
     "@google/generative-ai": "^0.22.0",
