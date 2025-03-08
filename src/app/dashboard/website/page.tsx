@@ -1,292 +1,96 @@
 "use client";
 
-import { 
-  Card, 
-  CardBody, 
-  CardHeader,
-  Button,
-  Chip,
-  Divider
-} from "@heroui/react";
-import { 
+import { Card, CardBody, CardHeader, Button } from "@heroui/react";
+import {
   GlobeAltIcon,
   HomeIcon,
   PhotoIcon,
-  BookOpenIcon,
-  WrenchScrewdriverIcon,
   DocumentTextIcon,
-  PhoneIcon,
-  MapPinIcon,
-  ShareIcon,
-  PencilIcon,
-  PlusIcon,
-  CalendarIcon,
-  ShoppingBagIcon,
-  TagIcon
+  Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-interface WebsiteStats {
-  totalVisits: number;
-  uniqueVisitors: number;
-  avgTimeOnSite: string;
-  bounceRate: number;
-  conversionRate: number;
-}
+const sections = [
+  {
+    title: "Site Builder",
+    description: "Configure your website settings, domain, and theme",
+    icon: Cog6ToothIcon,
+    href: "/dashboard/website/builder",
+    features: ["Domain registration", "Theme selection", "Page management"],
+  },
+  {
+    title: "Homepage",
+    description: "Manage your homepage content and settings",
+    icon: HomeIcon,
+    href: "/dashboard/website/homepage",
+    features: ["Contact form", "Phone tracking", "Social integration"],
+  },
+  {
+    title: "Showcase",
+    description: "Manage your menu, products, and services",
+    icon: PhotoIcon,
+    href: "/dashboard/website/showcase",
+    features: ["Menu items", "Product catalog", "Service listings"],
+  },
+  {
+    title: "Blog",
+    description: "Manage your blog posts and categories",
+    icon: DocumentTextIcon,
+    href: "/dashboard/website/blog",
+    features: ["Post management", "Categories", "Social sharing"],
+  },
+];
 
-const mockStats: WebsiteStats = {
-  totalVisits: 12500,
-  uniqueVisitors: 8900,
-  avgTimeOnSite: "2m 45s",
-  bounceRate: 32.5,
-  conversionRate: 4.2
-};
-
-export default function WebsitePage() {
+export default function WebsiteChannelPage() {
   return (
-    <div className="py-8 px-4 max-w-7xl mx-auto">
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <h1 className="text-3xl font-bold">Website Channel</h1>
-          <p className="text-foreground/60">Manage your website and online presence</p>
-        </div>
-        <Button
-          color="primary"
-          startContent={<GlobeAltIcon className="w-5 h-5" />}
-          onPress={() => window.location.href = '/dashboard/website/site-builder'}
-        >
-          Site Builder
-        </Button>
-      </div>
-
-      {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-        <Card>
-          <CardBody className="text-center">
-            <p className="text-sm text-foreground/60">Total Visits</p>
-            <p className="text-2xl font-bold">{mockStats.totalVisits.toLocaleString()}</p>
-          </CardBody>
-        </Card>
-        <Card>
-          <CardBody className="text-center">
-            <p className="text-sm text-foreground/60">Unique Visitors</p>
-            <p className="text-2xl font-bold">{mockStats.uniqueVisitors.toLocaleString()}</p>
-          </CardBody>
-        </Card>
-        <Card>
-          <CardBody className="text-center">
-            <p className="text-sm text-foreground/60">Avg. Time on Site</p>
-            <p className="text-2xl font-bold">{mockStats.avgTimeOnSite}</p>
-          </CardBody>
-        </Card>
-        <Card>
-          <CardBody className="text-center">
-            <p className="text-sm text-foreground/60">Bounce Rate</p>
-            <p className="text-2xl font-bold">{mockStats.bounceRate}%</p>
-          </CardBody>
-        </Card>
-        <Card>
-          <CardBody className="text-center">
-            <p className="text-sm text-foreground/60">Conversion Rate</p>
-            <p className="text-2xl font-bold">{mockStats.conversionRate}%</p>
-          </CardBody>
-        </Card>
-      </div>
-
-      {/* Main Sections */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Site Builder */}
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-2">
-            <WrenchScrewdriverIcon className="w-5 h-5" />
-            <h2 className="text-xl font-semibold">Site Builder</h2>
-          </CardHeader>
-          <CardBody>
-            <div className="space-y-4">
-              <Button
-                as={Link}
-                href="/dashboard/website/site-builder"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <GlobeAltIcon className="w-5 h-5 mr-2" />
-                Connect Domain
-              </Button>
-              <Button
-                as={Link}
-                href="/dashboard/website/site-builder/themes"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <PhotoIcon className="w-5 h-5 mr-2" />
-                Choose Theme
-              </Button>
-              <Button
-                as={Link}
-                href="/dashboard/website/site-builder/pages"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <DocumentTextIcon className="w-5 h-5 mr-2" />
-                Manage Pages
-              </Button>
+    <div className="p-6 max-w-7xl mx-auto space-y-6">
+      <Card>
+        <CardHeader>
+          <div className="flex items-center gap-2">
+            <GlobeAltIcon className="w-6 h-6" />
+            <div>
+              <h1 className="text-2xl font-bold">Website Channel</h1>
+              <p className="text-gray-500">Manage your website presence</p>
             </div>
-          </CardBody>
-        </Card>
-
-        {/* Homepage */}
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-2">
-            <HomeIcon className="w-5 h-5" />
-            <h2 className="text-xl font-semibold">Homepage</h2>
-          </CardHeader>
-          <CardBody>
-            <div className="space-y-4">
-              <Button
-                as={Link}
-                href="/dashboard/website/homepage"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <DocumentTextIcon className="w-5 h-5 mr-2" />
-                Edit Homepage
-              </Button>
-              <Button
-                as={Link}
-                href="/dashboard/website/homepage/contact"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <PhoneIcon className="w-5 h-5 mr-2" />
-                Contact Form Settings
-              </Button>
-              <Button
-                as={Link}
-                href="/dashboard/website/homepage/booking"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <CalendarIcon className="w-5 h-5 mr-2" />
-                Booking Form Settings
-              </Button>
-              <Button
-                as={Link}
-                href="/dashboard/website/homepage/social"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <ShareIcon className="w-5 h-5 mr-2" />
-                Social Links
-              </Button>
-              <Button
-                as={Link}
-                href="/dashboard/website/homepage/maps"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <MapPinIcon className="w-5 h-5 mr-2" />
-                Google Business Profile
-              </Button>
-            </div>
-          </CardBody>
-        </Card>
-
-        {/* Showcase */}
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-2">
-            <PhotoIcon className="w-5 h-5" />
-            <h2 className="text-xl font-semibold">Showcase</h2>
-          </CardHeader>
-          <CardBody>
-            <div className="space-y-4">
-              <Button
-                as={Link}
-                href="/dashboard/website/showcase"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <DocumentTextIcon className="w-5 h-5 mr-2" />
-                Manage Menu
-              </Button>
-              <Button
-                as={Link}
-                href="/dashboard/website/showcase/products"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <ShoppingBagIcon className="w-5 h-5 mr-2" />
-                Manage Products
-              </Button>
-              <Button
-                as={Link}
-                href="/dashboard/website/showcase/services"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <WrenchScrewdriverIcon className="w-5 h-5 mr-2" />
-                Manage Services
-              </Button>
-              <Button
-                as={Link}
-                href="/dashboard/website/showcase/booking"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <CalendarIcon className="w-5 h-5 mr-2" />
-                Booking Settings
-              </Button>
-            </div>
-          </CardBody>
-        </Card>
-
-        {/* Blog */}
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-2">
-            <BookOpenIcon className="w-5 h-5" />
-            <h2 className="text-xl font-semibold">Blog</h2>
-          </CardHeader>
-          <CardBody>
-            <div className="space-y-4">
-              <Button
-                as={Link}
-                href="/dashboard/website/blog"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <DocumentTextIcon className="w-5 h-5 mr-2" />
-                All Posts
-              </Button>
-              <Button
-                as={Link}
-                href="/dashboard/website/blog/new"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <PlusIcon className="w-5 h-5 mr-2" />
-                Create New Post
-              </Button>
-              <Button
-                as={Link}
-                href="/dashboard/website/blog/categories"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <TagIcon className="w-5 h-5 mr-2" />
-                Manage Categories
-              </Button>
-              <Button
-                as={Link}
-                href="/dashboard/website/blog/schedule"
-                className="w-full justify-start"
-                variant="flat"
-              >
-                <CalendarIcon className="w-5 h-5 mr-2" />
-                Schedule Posts
-              </Button>
-            </div>
-          </CardBody>
-        </Card>
-      </div>
+          </div>
+        </CardHeader>
+        <CardBody>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {sections.map((section) => (
+              <Card key={section.title} className="bg-content2">
+                <CardBody>
+                  <div className="flex items-start gap-4">
+                    <div className="p-2 bg-primary/10 rounded-lg">
+                      <section.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h2 className="text-xl font-semibold mb-2">{section.title}</h2>
+                      <p className="text-gray-500 mb-4">{section.description}</p>
+                      <ul className="space-y-2 mb-4">
+                        {section.features.map((feature) => (
+                          <li key={feature} className="flex items-center gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                            <span className="text-sm">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <Link href={section.href}>
+                        <Button
+                          variant="flat"
+                          color="primary"
+                          className="w-full"
+                        >
+                          Manage {section.title}
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
+        </CardBody>
+      </Card>
     </div>
   );
 } 

@@ -6,7 +6,8 @@ import {
   DocumentTextIcon,
   MagnifyingGlassIcon,
   MegaphoneIcon,
-  QuestionMarkCircleIcon
+  QuestionMarkCircleIcon,
+  GlobeAltIcon
 } from "@heroicons/react/24/outline";
 
 export function Footer() {
@@ -93,6 +94,12 @@ export function Footer() {
                 <Link href="/dashboard/broadcast" className="text-foreground/80 hover:text-foreground flex items-center gap-2">
                   <MegaphoneIcon className="w-4 h-4" />
                   Broadcast Centre
+                </Link>
+              </li>
+              <li>
+                <Link href="/dashboard/website" className="text-foreground/80 hover:text-foreground flex items-center gap-2">
+                  <GlobeAltIcon className="w-4 h-4" />
+                  Website Channel
                 </Link>
               </li>
             </ul>
