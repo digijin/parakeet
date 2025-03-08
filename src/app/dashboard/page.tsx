@@ -21,7 +21,9 @@ import {
   MegaphoneIcon,
   QuestionMarkCircleIcon,
   EnvelopeIcon,
-  ChatBubbleLeftRightIcon
+  ChatBubbleLeftRightIcon,
+  GlobeAltIcon,
+  ShareIcon,
 } from "@heroicons/react/24/outline";
 
 export default function Dashboard() {
@@ -90,6 +92,44 @@ export default function Dashboard() {
     { date: "2024-03-28", events: ["Client Presentation"] }
   ];
 
+  const sections = [
+    {
+      title: "Content Centre",
+      description: "Manage your content and create engaging posts",
+      icon: DocumentTextIcon,
+      href: "/dashboard/content",
+      features: ["Content creation", "Post scheduling", "Analytics"],
+    },
+    {
+      title: "SEO Centre",
+      description: "Optimize your website for search engines",
+      icon: MagnifyingGlassIcon,
+      href: "/dashboard/seo",
+      features: ["Keyword research", "On-page optimization", "Backlink analysis"],
+    },
+    {
+      title: "Broadcast Centre",
+      description: "Broadcast your content to a wider audience",
+      icon: MegaphoneIcon,
+      href: "/dashboard/broadcast",
+      features: ["Live streaming", "Video production", "Social media integration"],
+    },
+    {
+      title: "Social Channel",
+      description: "Manage your social media presence and engagement",
+      icon: ShareIcon,
+      href: "/dashboard/social",
+      features: ["Platform connections", "Content scheduling", "Audience growth"],
+    },
+    {
+      title: "Contact / Help",
+      description: "Get assistance and support",
+      icon: QuestionMarkCircleIcon,
+      href: "/dashboard/help",
+      features: ["Customer support", "FAQ section", "Contact form"],
+    },
+  ];
+
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case "high": return "danger";
@@ -105,42 +145,18 @@ export default function Dashboard() {
       
       {/* Channel Buttons */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <Button
-          as={Link}
-          href="/dashboard/content"
-          className="h-24 flex flex-col items-center justify-center gap-2"
-          variant="flat"
-        >
-          <DocumentTextIcon className="w-6 h-6" />
-          <span>Content Centre</span>
-        </Button>
-        <Button
-          as={Link}
-          href="/dashboard/seo"
-          className="h-24 flex flex-col items-center justify-center gap-2"
-          variant="flat"
-        >
-          <MagnifyingGlassIcon className="w-6 h-6" />
-          <span>SEO Centre</span>
-        </Button>
-        <Button
-          as={Link}
-          href="/dashboard/broadcast"
-          className="h-24 flex flex-col items-center justify-center gap-2"
-          variant="flat"
-        >
-          <MegaphoneIcon className="w-6 h-6" />
-          <span>Broadcast Centre</span>
-        </Button>
-        <Button
-          as={Link}
-          href="/dashboard/help"
-          className="h-24 flex flex-col items-center justify-center gap-2"
-          variant="flat"
-        >
-          <QuestionMarkCircleIcon className="w-6 h-6" />
-          <span>Contact / Help</span>
-        </Button>
+        {sections.map((section) => (
+          <Button
+            as={Link}
+            key={section.title}
+            href={section.href}
+            className="h-24 flex flex-col items-center justify-center gap-2"
+            variant="flat"
+          >
+            <section.icon className="w-6 h-6" />
+            <span>{section.title}</span>
+          </Button>
+        ))}
       </div>
 
       {/* Main Grid */}
