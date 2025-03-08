@@ -17,7 +17,12 @@
     "test:coverage": "jest --coverage",
     "test:coverage:watch": "jest --coverage --watch",
     "test:ci": "jest --ci --coverage --maxWorkers=2",
-    "test:clear": "jest --clearCache"
+    "test:clear": "jest --clearCache",
+    "deploy": "npm run build && eb deploy",
+    "deploy:init": "eb init",
+    "deploy:create": "eb create",
+    "deploy:status": "eb status",
+    "deploy:logs": "eb logs"
   },
   "dependencies": {
     "@google/generative-ai": "^0.22.0",
