@@ -24,6 +24,8 @@ import {
   ChatBubbleLeftRightIcon,
   GlobeAltIcon,
   ShareIcon,
+  CurrencyDollarIcon,
+  GiftIcon,
 } from "@heroicons/react/24/outline";
 
 export default function Dashboard() {
@@ -127,6 +129,20 @@ export default function Dashboard() {
       icon: QuestionMarkCircleIcon,
       href: "/dashboard/help",
       features: ["Customer support", "FAQ section", "Contact form"],
+    },
+    {
+      title: "Ad Channel",
+      description: "Create and manage your advertising campaigns",
+      icon: CurrencyDollarIcon,
+      href: "/dashboard/ads",
+      features: ["Campaign management", "Ad creation", "Performance analytics"],
+    },
+    {
+      title: "Referrals Channel",
+      description: "Manage your referral campaigns and rewards",
+      icon: GiftIcon,
+      href: "/dashboard/referrals",
+      features: ["Campaign management", "Promo generation", "Coupon validation"],
     },
   ];
 
