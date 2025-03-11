@@ -5,11 +5,9 @@ import {
   CardBody, 
   CardHeader,
   Button,
-  Divider,
   Progress,
   Chip,
-  Avatar,
-  Tooltip
+  Avatar
 } from "@heroui/react";
 import Link from "next/link";
 import { 
@@ -20,9 +18,7 @@ import {
   MagnifyingGlassIcon,
   MegaphoneIcon,
   QuestionMarkCircleIcon,
-  EnvelopeIcon,
   ChatBubbleLeftRightIcon,
-  GlobeAltIcon,
   ShareIcon,
   CurrencyDollarIcon,
   GiftIcon,

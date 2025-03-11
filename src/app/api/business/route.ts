@@ -20,7 +20,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { name } = await request.json();
+    const { name, description } = await request.json();
     const newBusiness = await createBusiness({ name });
 
     if (newBusiness) {
@@ -28,9 +28,11 @@ export async function POST(request: Request) {
     } else {
       return NextResponse.json({ message: "Failed to create business" }, { status: 500 });
     }
-  } catch (error) {
-    console.error("Error creating business in api:", error);
-    return NextResponse.json({ message: "Failed to create business" }, { status: 500 });
+  } catch {
+    return new Response(JSON.stringify({ message: "Failed to create business" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
 

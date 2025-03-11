@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardBody, Button } from "@heroui/react";
+import { Card, CardBody, CardHeader } from "@heroui/react";
 import Link from "next/link";
 
 export default function Contact() {

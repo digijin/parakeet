@@ -1,5 +1,7 @@
 "use client";
 
-export default function LoginLayout({ children }) {
+import { ReactNode } from "react";
+
+export default function LoginLayout({ children }: { children: ReactNode }) {
   return <div style={{ padding: "20px" }}>{children}</div>;
 }

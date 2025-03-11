@@ -32,7 +32,6 @@ import {
   CalendarIcon,
   ClockIcon,
   ChartBarIcon,
-  XMarkIcon,
   PencilIcon,
   TrashIcon,
   CheckCircleIcon,
@@ -121,6 +120,11 @@ export default function BroadcastPage() {
 
   const handleChannelChange = (value: string) => {
     setSelectedChannel(value);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Handle form submission
   };
 
   return (

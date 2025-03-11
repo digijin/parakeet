@@ -202,12 +202,12 @@ const mockReviews: Review[] = [
 ];
 
 export default function SEOCentrePage() {
-  const [activeTab, setActiveTab] = useState("local");
+  const [activeTab, setActiveTab] = useState("listings");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [listings, setListings] = useState(mockListings);
-  const [tasks, setTasks] = useState(mockTasks);
-  const [content, setContent] = useState(mockContent);
-  const [reviews, setReviews] = useState(mockReviews);
+  const [listings] = useState(mockListings);
+  const [tasks] = useState(mockTasks);
+  const [content] = useState(mockContent);
+  const [reviews] = useState(mockReviews);
   const [modalMode, setModalMode] = useState<"connect" | "edit" | "reply">("connect");
   const [selectedListing, setSelectedListing] = useState<LocalListing | null>(null);
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
@@ -244,7 +244,7 @@ export default function SEOCentrePage() {
         </CardHeader>
         <CardBody>
           <Tabs selectedKey={activeTab} onSelectionChange={(key) => setActiveTab(key.toString())}>
-            <Tab key="local" title="Local SEO">
+            <Tab key="listings" title="Local SEO">
               <div className="p-4 space-y-6">
                 {/* Business Listings */}
                 <Card className="bg-content2">

@@ -12,7 +12,10 @@ export async function POST(request: Request) {
     } else {
       return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
     }
-  } catch (error) {
-    return NextResponse.error();
+  } catch {
+    return new Response(JSON.stringify({ message: "Invalid credentials" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }

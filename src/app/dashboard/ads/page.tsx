@@ -30,18 +30,12 @@ import {
 } from "@heroui/react";
 import {
   MegaphoneIcon,
-  PlusIcon,
-  PencilIcon,
-  TrashIcon,
   PauseIcon,
   PlayIcon,
   DocumentDuplicateIcon,
   ChartBarIcon,
   PhotoIcon,
-  LinkIcon,
-  UserGroupIcon,
-  CurrencyDollarIcon,
-  CalendarIcon,
+  PencilIcon,
 } from "@heroicons/react/24/outline";
 
 interface Campaign {
@@ -175,30 +169,12 @@ const mockAds: Ad[] = [
 export default function AdChannelPage() {
   const [activeTab, setActiveTab] = useState("existing");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [campaigns, setCampaigns] = useState(mockCampaigns);
+  const [campaigns] = useState(mockCampaigns);
   const [ads, setAds] = useState(mockAds);
-  const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
-  const [selectedAd, setSelectedAd] = useState<Ad | null>(null);
   const [isCreatingAd, setIsCreatingAd] = useState(false);
-  const [newAd, setNewAd] = useState<Partial<Ad>>({
-    type: "standalone",
-    platform: "Facebook",
-    status: "active",
-  });
-
-  const handleCreateAd = () => {
-    setIsCreatingAd(true);
-    setNewAd({
-      type: "standalone",
-      platform: "Facebook",
-      status: "active",
-    });
-    onOpen();
-  };
 
   const handleEditAd = (ad: Ad) => {
     setIsCreatingAd(false);
-    setSelectedAd(ad);
     onOpen();
   };
 
@@ -480,7 +456,6 @@ export default function AdChannelPage() {
                             type="number"
                             label="Budget"
                             placeholder="Enter budget"
-                            startContent={<CurrencyDollarIcon className="w-4 h-4" />}
                           />
                           <div className="flex gap-4">
                             <Input

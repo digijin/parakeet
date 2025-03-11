@@ -15,18 +15,12 @@ import {
   ModalBody,
   ModalFooter,
   Textarea,
-  Chip,
-  Tabs,
-  Tab,
-  Divider
+  Chip
 } from "@heroui/react";
 import { 
-  CalendarIcon,
   PlusIcon,
   PencilIcon,
   TrashIcon,
-  FunnelIcon,
-  ViewColumnsIcon,
   Bars3Icon,
   CalendarDaysIcon
 } from "@heroicons/react/24/outline";

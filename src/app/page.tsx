@@ -43,7 +43,7 @@ export default function Home() {
         <Card className="w-full max-w-2xl">
           <CardBody className="flex flex-col gap-4">
             <h2 className="text-2xl font-bold">Marketing Made Simple</h2>
-            <p className="text-default-500">Running a business is hard enough—marketing shouldn't be. Our all-in-one platform helps you:</p>
+            <p className="text-default-500">Running a business is hard enough—marketing shouldn&apos;t be. Our all-in-one platform helps you:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {marketingFeatures.map((feature, index) => (
                 <div key={index} className="flex items-center gap-2">
@@ -105,6 +105,10 @@ export default function Home() {
           </CardBody>
         </Card>
       </section>
+
+      <p>
+        We&apos;re here to help you grow your business and reach your goals.
+      </p>
     </main>
   );
 }

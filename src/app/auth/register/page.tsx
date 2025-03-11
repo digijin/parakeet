@@ -24,28 +24,23 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError("");
-
     try {
       const response = await fetch("/api/auth/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password, displayName }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
       });
 
-      const data: RegisterResponse = await response.json();
-
-      if (response.ok) {
-        router.push("/auth/register/success");
-      } else {
-        setError(data.message);
+      if (!response.ok) {
+        throw new Error("Registration failed");
       }
-    } catch (err) {
-      setError("An unexpected error occurred");
+
+      const data = await response.json();
+      router.push("/auth/login");
+    } catch {
+      setError("Registration failed. Please try again.");
     }
   };
 

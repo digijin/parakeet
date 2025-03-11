@@ -14,17 +14,9 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
   Chip,
   Input,
   Textarea,
-  Select,
-  SelectItem,
 } from "@heroui/react";
 import {
   ShareIcon,
@@ -33,9 +25,6 @@ import {
   UserGroupIcon,
   ChartBarIcon,
   MegaphoneIcon,
-  ArrowPathIcon,
-  LinkIcon,
-  DocumentTextIcon,
 } from "@heroicons/react/24/outline";
 
 interface SocialPlatform {
@@ -61,6 +50,7 @@ interface Message {
   content: string;
   timestamp: string;
   read: boolean;
+  status: "sent" | "scheduled" | "failed";
 }
 
 interface Post {
@@ -113,6 +103,7 @@ const mockMessages: Message[] = [
     content: "Hi, I'm interested in your services",
     timestamp: "2024-03-20T10:30:00",
     read: false,
+    status: "sent",
   },
   {
     id: "msg2",
@@ -121,6 +112,7 @@ const mockMessages: Message[] = [
     content: "Great content! Would love to collaborate",
     timestamp: "2024-03-20T09:15:00",
     read: true,
+    status: "sent",
   },
 ];
 
@@ -143,241 +135,212 @@ const mockPosts: Post[] = [
 ];
 
 export default function SocialChannelPage() {
-  const [activeTab, setActiveTab] = useState("platforms");
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [platforms, setPlatforms] = useState(mockPlatforms);
-  const [messages, setMessages] = useState(mockMessages);
-  const [posts, setPosts] = useState(mockPosts);
+  const [activeTab, setActiveTab] = useState("overview");
+  const [platforms] = useState(mockPlatforms);
+  const [messages] = useState(mockMessages);
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
+  const [newPost, setNewPost] = useState({
+    content: "",
+    platforms: [] as string[],
+  });
 
-  const handleConnect = (platformId: string) => {
-    // Implement OAuth flow
-    console.log("Connecting to platform:", platformId);
-  };
-
-  const handlePageConnect = (platformId: string, pageId: string) => {
-    // Implement page/group connection
-    console.log("Connecting to page:", pageId);
-  };
-
-  const handleCreatePixel = () => {
-    // Implement pixel creation
-    console.log("Creating pixel");
+  const handlePostSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle post submission
+    setNewPost({ content: "", platforms: [] });
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-6">
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <ShareIcon className="w-6 h-6" />
-            <div>
-              <h1 className="text-2xl font-bold">Social Channel</h1>
-              <p className="text-gray-500">Manage your social media presence</p>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Social Channel</h1>
+        <Button
+          color="primary"
+          startContent={<PlusIcon className="h-5 w-5" />}
+          onPress={() => setActiveTab("create")}
+        >
+          Create Post
+        </Button>
+      </div>
+
+      <Tabs
+        selectedKey={activeTab}
+        onSelectionChange={(key) => setActiveTab(key as string)}
+      >
+        <Tab
+          key="overview"
+          title={
+            <div className="flex items-center gap-2">
+              <ChartBarIcon className="h-5 w-5" />
+              Overview
             </div>
-          </div>
-        </CardHeader>
-        <CardBody>
-          <Tabs selectedKey={activeTab} onSelectionChange={(key) => setActiveTab(key.toString())}>
-            <Tab key="platforms" title="Platforms">
-              <div className="p-4 space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {platforms.map((platform) => (
-                    <Card key={platform.id} className="bg-content2">
-                      <CardBody>
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 bg-primary/10 rounded-full" />
-                            <h3 className="text-lg font-semibold">{platform.name}</h3>
-                          </div>
-                          <Button
-                            color={platform.connected ? "success" : "primary"}
-                            onPress={() => handleConnect(platform.id)}
-                          >
-                            {platform.connected ? "Connected" : "Connect"}
-                          </Button>
-                        </div>
-                        {platform.connected && (
-                          <div className="space-y-4">
-                            <div className="text-sm font-medium">Pages & Groups</div>
-                            {platform.pages.map((page) => (
-                              <div key={page.id} className="flex items-center justify-between">
-                                <div>
-                                  <div className="font-medium">{page.name}</div>
-                                  <div className="text-sm text-gray-500">
-                                    {page.followers.toLocaleString()} followers
-                                  </div>
-                                </div>
-                                <Button
-                                  size="sm"
-                                  color={page.connected ? "success" : "primary"}
-                                  onPress={() => handlePageConnect(platform.id, page.id)}
-                                >
-                                  {page.connected ? "Connected" : "Connect"}
-                                </Button>
-                              </div>
-                            ))}
-                            <Button
-                              variant="light"
-                              startContent={<PlusIcon className="w-4 h-4" />}
-                              className="w-full"
-                            >
-                              Add New Page/Group
-                            </Button>
-                          </div>
-                        )}
-                      </CardBody>
-                    </Card>
-                  ))}
+          }
+        >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card>
+              <CardBody>
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-primary/10 rounded-lg">
+                    <UserGroupIcon className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-default-500">Total Followers</p>
+                    <p className="text-2xl font-bold">12.5K</p>
+                  </div>
                 </div>
-              </div>
-            </Tab>
+              </CardBody>
+            </Card>
 
-            <Tab key="messages" title="Messages">
-              <div className="p-4">
-                <Table>
-                  <TableHeader>
-                    <TableColumn>PLATFORM</TableColumn>
-                    <TableColumn>SENDER</TableColumn>
-                    <TableColumn>MESSAGE</TableColumn>
-                    <TableColumn>TIME</TableColumn>
-                    <TableColumn>ACTIONS</TableColumn>
-                  </TableHeader>
-                  <TableBody>
-                    {messages.map((message) => (
-                      <TableRow key={message.id}>
-                        <TableCell>
-                          <Chip>{message.platform}</Chip>
-                        </TableCell>
-                        <TableCell>{message.sender}</TableCell>
-                        <TableCell>{message.content}</TableCell>
-                        <TableCell>{new Date(message.timestamp).toLocaleString()}</TableCell>
-                        <TableCell>
-                          <Button size="sm">Reply</Button>
-                        </TableCell>
-                      </TableRow>
+            <Card>
+              <CardBody>
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-success/10 rounded-lg">
+                    <ChatBubbleLeftRightIcon className="h-6 w-6 text-success" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-default-500">Engagement Rate</p>
+                    <p className="text-2xl font-bold">4.2%</p>
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
+
+            <Card>
+              <CardBody>
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-warning/10 rounded-lg">
+                    <MegaphoneIcon className="h-6 w-6 text-warning" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-default-500">Active Campaigns</p>
+                    <p className="text-2xl font-bold">3</p>
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
+          </div>
+        </Tab>
+
+        <Tab
+          key="create"
+          title={
+            <div className="flex items-center gap-2">
+              <PlusIcon className="h-5 w-5" />
+              Create Post
+            </div>
+          }
+        >
+          <Card>
+            <CardBody>
+              <form onSubmit={handlePostSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    Select Platforms
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    {platforms.map((platform) => (
+                      <Chip
+                        key={platform.id}
+                        className={`cursor-pointer ${
+                          selectedPlatforms.includes(platform.id) ? "bg-primary text-white" : ""
+                        }`}
+                        onClick={() => {
+                          setSelectedPlatforms((prev) =>
+                            prev.includes(platform.id)
+                              ? prev.filter((id) => id !== platform.id)
+                              : [...prev, platform.id]
+                          );
+                        }}
+                      >
+                        {platform.name}
+                      </Chip>
                     ))}
-                  </TableBody>
-                </Table>
-              </div>
-            </Tab>
+                  </div>
+                </div>
 
-            <Tab key="content" title="Create Content">
-              <div className="p-4 space-y-6">
-                <Card className="bg-content2">
-                  <CardBody>
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Select Platforms</label>
-                        <div className="flex gap-2">
-                          {platforms.map((platform) => (
-                            <Chip
-                              key={platform.id}
-                              className="cursor-pointer"
-                              onClick={() => {}}
-                            >
-                              {platform.name}
-                            </Chip>
-                          ))}
-                        </div>
-                      </div>
-                      <Textarea
-                        label="Content"
-                        placeholder="Write your post..."
-                        rows={4}
-                      />
-                      <div className="flex gap-4">
-                        <Input
-                          type="datetime-local"
-                          label="Schedule For"
-                          className="flex-1"
-                        />
-                        <Button color="primary">Schedule Post</Button>
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    Post Content
+                  </label>
+                  <Textarea
+                    value={newPost.content}
+                    onChange={(e) =>
+                      setNewPost((prev) => ({ ...prev, content: e.target.value }))
+                    }
+                    placeholder="What's on your mind?"
+                    rows={4}
+                  />
+                </div>
 
-                <Card className="bg-content2">
-                  <CardBody>
-                    <h3 className="text-lg font-semibold mb-4">Grow Audience</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <Button
-                        variant="flat"
-                        startContent={<ChatBubbleLeftRightIcon className="w-5 h-5" />}
-                      >
-                        Comment on Posts
-                      </Button>
-                      <Button
-                        variant="flat"
-                        startContent={<UserGroupIcon className="w-5 h-5" />}
-                      >
-                        Join Groups
-                      </Button>
-                      <Button
-                        variant="flat"
-                        startContent={<LinkIcon className="w-5 h-5" />}
-                      >
-                        Create Backlinks
-                      </Button>
-                      <Button
-                        variant="flat"
-                        startContent={<MegaphoneIcon className="w-5 h-5" />}
-                      >
-                        Create Ad
-                      </Button>
-                    </div>
-                  </CardBody>
-                </Card>
-              </div>
-            </Tab>
+                <div className="flex justify-end gap-2">
+                  <Button
+                    variant="flat"
+                    onPress={() => setActiveTab("overview")}
+                  >
+                    Cancel
+                  </Button>
+                  <Button color="primary" type="submit">
+                    Post
+                  </Button>
+                </div>
+              </form>
+            </CardBody>
+          </Card>
+        </Tab>
 
-            <Tab key="pixel" title="Pixel">
-              <div className="p-4 space-y-6">
-                <Card className="bg-content2">
-                  <CardBody>
-                    <div className="flex items-center justify-between mb-6">
-                      <div>
-                        <h3 className="text-lg font-semibold">Facebook Pixel</h3>
-                        <p className="text-sm text-gray-500">Track website visitors and create custom audiences</p>
-                      </div>
-                      <Button
-                        color="primary"
-                        startContent={<PlusIcon className="w-5 h-5" />}
-                        onPress={handleCreatePixel}
-                      >
-                        Create Pixel
-                      </Button>
-                    </div>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between p-4 border rounded-lg">
-                        <div>
-                          <div className="font-medium">Blog Pixel</div>
-                          <div className="text-sm text-gray-500">ID: 123456789</div>
-                        </div>
-                        <div className="flex gap-2">
-                          <Button
-                            variant="flat"
-                            startContent={<ChartBarIcon className="w-5 h-5" />}
-                          >
-                            View Audience
-                          </Button>
-                          <Button
-                            variant="flat"
-                            startContent={<MegaphoneIcon className="w-5 h-5" />}
-                          >
-                            Create Ad
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
-              </div>
-            </Tab>
-          </Tabs>
-        </CardBody>
-      </Card>
+        <Tab
+          key="messages"
+          title={
+            <div className="flex items-center gap-2">
+              <ChatBubbleLeftRightIcon className="h-5 w-5" />
+              Messages
+            </div>
+          }
+        >
+          <Card>
+            <CardBody>
+              <Table aria-label="Messages table">
+                <TableHeader>
+                  <TableColumn>Platform</TableColumn>
+                  <TableColumn>Message</TableColumn>
+                  <TableColumn>Status</TableColumn>
+                  <TableColumn>Actions</TableColumn>
+                </TableHeader>
+                <TableBody>
+                  {messages.map((message) => (
+                    <TableRow key={message.id}>
+                      <TableCell>{message.platform}</TableCell>
+                      <TableCell>{message.content}</TableCell>
+                      <TableCell>
+                        <Chip
+                          color={
+                            message.status === "sent"
+                              ? "success"
+                              : message.status === "scheduled"
+                              ? "warning"
+                              : "danger"
+                          }
+                        >
+                          {message.status}
+                        </Chip>
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          size="sm"
+                          variant="light"
+                          startContent={<ShareIcon className="h-4 w-4" />}
+                        >
+                          Share
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardBody>
+          </Card>
+        </Tab>
+      </Tabs>
     </div>
   );
 } 

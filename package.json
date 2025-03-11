@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "dev:raw": "next dev",
-    "build": "next build && node -e 'require(\"./src/utils/generateSitemap.js\").generateSitemap()'",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "db": "pocketbase serve",

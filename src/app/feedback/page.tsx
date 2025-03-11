@@ -151,7 +151,7 @@ export default function FeedbackPage() {
             <h2 className="text-xl font-semibold mb-4">What Happens Next?</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li>We review all feedback within 48 hours</li>
-              <li>For bug reports, we'll prioritize based on severity</li>
+              <li>For bug reports, we&apos;ll prioritize based on severity</li>
               <li>Feature requests are evaluated for future releases</li>
               <li>We may contact you for additional information</li>
               <li>Status updates are provided via email</li>

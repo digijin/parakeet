@@ -25,12 +25,7 @@ import {
   PencilIcon,
   TrashIcon,
   ChartBarIcon,
-  CalendarIcon,
-  ClockIcon,
   ArrowUpIcon,
-  ArrowDownIcon,
-  CheckCircleIcon,
-  XCircleIcon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
@@ -132,7 +127,7 @@ export default function ContentCenter() {
         </Card>
         <Card>
           <CardBody className="flex items-center gap-4">
-            <CalendarIcon className="h-8 w-8 text-warning" />
+            <ChartBarIcon className="h-8 w-8 text-warning" />
             <div>
               <p className="text-sm text-gray-500">Scheduled Posts</p>
               <p className="text-2xl font-bold">{scheduledPosts}</p>

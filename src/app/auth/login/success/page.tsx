@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader, CardFooter, Button } from "@heroui/react";
 import Link from "next/link";
-import { User, DecodedToken, getStoredToken, verifyTokenWithAPI, createUserFromToken } from "@/lib/auth";
+import { getStoredToken, verifyTokenWithAPI, createUserFromToken, DecodedToken } from "@/lib/auth";
+import { useRouter } from "next/navigation";
 
 const LoginSuccessPage: React.FC = () => {
   const [token, setToken] = useState<string | null>(null);

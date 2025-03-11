@@ -31,16 +31,18 @@ import {
 import {
   GiftIcon,
   PlusIcon,
-  QrCodeIcon,
-  ShareIcon,
+  PencilIcon,
+  TrashIcon,
   DocumentTextIcon,
   ClipboardIcon,
-  BarcodeIcon,
+  QrCodeIcon,
   CheckCircleIcon,
   XCircleIcon,
   CameraIcon,
-  TagIcon,
+  ChartBarIcon,
+  UserGroupIcon,
   CurrencyDollarIcon,
+  ShareIcon,
   TrophyIcon,
   TicketIcon,
   ChatBubbleLeftRightIcon,
@@ -148,29 +150,23 @@ const mockCoupons: Coupon[] = [
 export default function ReferralsChannelPage() {
   const [activeTab, setActiveTab] = useState("campaigns");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [campaigns, setCampaigns] = useState(mockCampaigns);
-  const [promotions, setPromotions] = useState(mockPromotions);
+  const [campaigns] = useState(mockCampaigns);
+  const [promotions] = useState(mockPromotions);
   const [coupons, setCoupons] = useState(mockCoupons);
-  const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
-  const [selectedPromotion, setSelectedPromotion] = useState<Promotion | null>(null);
   const [modalMode, setModalMode] = useState<"campaign" | "promotion" | "coupon">("campaign");
 
   const handleCreateCampaign = () => {
     setModalMode("campaign");
-    setSelectedCampaign(null);
     onOpen();
   };
 
   const handleCreatePromotion = (campaignId: string) => {
     setModalMode("promotion");
-    setSelectedPromotion(null);
-    setSelectedCampaign(campaigns.find(c => c.id === campaignId) || null);
     onOpen();
   };
 
   const handleGenerateCoupons = (promotion: Promotion) => {
     setModalMode("coupon");
-    setSelectedPromotion(promotion);
     onOpen();
   };
 

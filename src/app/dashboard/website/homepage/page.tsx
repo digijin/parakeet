@@ -17,8 +17,6 @@ import {
 } from "@heroui/react";
 import {
   PhoneIcon,
-  EnvelopeIcon,
-  CalendarIcon,
   MapPinIcon,
   LinkIcon,
   PlusIcon,
@@ -201,7 +199,7 @@ export default function HomepageSettingsPage() {
                           isSelected={trackCalls}
                           onValueChange={setTrackCalls}
                         />
-                        <span>Track "Call Now" button clicks</span>
+                        <span>Track &quot;Call Now&quot; button clicks</span>
                       </div>
                     </div>
                   </CardBody>

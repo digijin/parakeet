@@ -35,8 +35,6 @@ import {
   PencilIcon,
   TrashIcon,
   ShareIcon,
-  TagIcon,
-  CalendarIcon,
   FunnelIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
@@ -155,15 +153,17 @@ export default function BlogRollPage() {
                 className="w-full md:w-64"
               />
               <Select
+                label="Category"
                 placeholder="Filter by category"
                 selectedKeys={[selectedCategory]}
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 startContent={<FunnelIcon className="w-4 h-4" />}
                 className="w-full md:w-48"
               >
-                <SelectItem key="all" value="all">All Categories</SelectItem>
-                {categories.map((category) => (
-                  <SelectItem key={category} value={category}>{category}</SelectItem>
+                {[{ id: "all", name: "All Categories" }, ...categories.map(c => ({ id: c, name: c }))].map(category => (
+                  <SelectItem key={category.id} textValue={category.name}>
+                    {category.name}
+                  </SelectItem>
                 ))}
               </Select>
               <div className="flex flex-wrap gap-2">
@@ -310,11 +310,13 @@ export default function BlogRollPage() {
               <div className="flex gap-4">
                 <Select
                   label="Category"
-                  selectedKeys={[editPost?.category || ""]}
-                  className="flex-1"
+                  placeholder="Select category"
+                  className="w-full md:w-48"
                 >
-                  {categories.map((category) => (
-                    <SelectItem key={category}>{category}</SelectItem>
+                  {[{ id: "all", name: "All Categories" }, ...categories.map(c => ({ id: c, name: c }))].map(category => (
+                    <SelectItem key={category.id} textValue={category.name}>
+                      {category.name}
+                    </SelectItem>
                   ))}
                 </Select>
                 <Input

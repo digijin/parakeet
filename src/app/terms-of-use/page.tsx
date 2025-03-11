@@ -13,7 +13,7 @@ export default function TermsOfUse() {
         <CardBody className="space-y-6">
           <section>
             <h2 className="text-xl font-semibold mb-2">1. Acceptance of Terms</h2>
-            <p>By accessing or using our service, you agree to be bound by these Terms of Use. If you disagree with any part of these terms, you must not use our service.</p>
+            <p>By accessing and using this website, you agree to be bound by these &quot;Terms and Conditions&quot; of use. If you do not agree to these terms, please do not use our website.</p>
           </section>
 
           <section>
@@ -50,7 +50,7 @@ export default function TermsOfUse() {
 
           <section>
             <h2 className="text-xl font-semibold mb-2">7. Changes to Terms</h2>
-            <p>We reserve the right to modify these terms at any time. Continued use of the service after such modifications constitutes acceptance of the updated terms.</p>
+            <p>We reserve the right to modify these terms at any time without prior notice. Your continued use of our website following any changes constitutes your acceptance of the new terms.</p>
           </section>
 
           <section>
